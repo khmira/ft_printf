@@ -1,6 +1,16 @@
 #include "ft_printf.h"
+//void	print(
 int	main()
 {
-	ft_putchar('k');
+	char *k = "qwertyi%d";
+	while (*k)
+	{
+		if (*k != '%')
+		{
+			ft_putchar(*k);
+//			k++;
+		}
+		k++;
+	}
 	return (0);
 }
