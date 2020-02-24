@@ -28,28 +28,35 @@ void	until0(int first, ...)
 	}
 	va_end(list);
 }
-void	print(char *text, ...)
+void	get_type(const char **text, va_list args)
+{
+	if (**text == 'd' && *text++)
+		ft_putnbr(va_arg(args, int));
+	if(**text == 's' && *text++)
+		ft_putstr(va_arg(args, char *));
+}
+
+void	print(const char *text, ...)
 {
 	va_list args;
 
 	va_start(args, text);
 	while (*text)
 	{
-		if (*text != '%')
-		{
+		if (*text == '%' && text++)
+			get_type(&text, args);
+		else
 			ft_putchar(*text);
-			text++;
-		}
-		else if (*text == '%' && *(text + 1) == 'd')
-		{
-			ft_putnbr(va_arg(args, int));
-			text = text + 2;
-		}
+		text++;
 	}
+	va_end(args);
 }
 int	main()
 {
-	char *k = "";
-	print("2%dqwerty%di",1);
+	//char *k = "a%dqwerty%di\n%d%d%di%d";
+	//printf(k,1, 2);
+	print("d#%s#%s", "qwerty","qwerty");
+//	printf(k, 1,2,3,4,5,6);
+//	print("##");
 	return (0);
 }
