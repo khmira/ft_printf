@@ -1,22 +1,22 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-void	deTOhe(int nb)
+void	deTOhe(unsigned int   nb)
 {
 	long int r;
-	long int q;
+	unsigned  long int q;
 	int i;
 	int j;
 	int temp;
 	char h[1000000];
 
 	i = 1;
-	if (nb < 0)
+/*	if (nb < 0)
 	{
 		ft_putchar('-');
 		q = -nb;
 	}
-	else
+	else*/
 		q = nb;
 	while (q) {
 		temp = q % 16;
@@ -66,8 +66,7 @@ int	main()
 	//char *k = "a%dqwerty%di\n%d%d%di%d";
 	//print(k,1, 2);
 //	print("%d%#%s$%#%s",1, "qwerty","qwerty");
-	print("%x\n", 33);
-	deTOhe(33);
+	printf("%s||%d||%x\n","qwerty", 1,-2545);
 //	print("##");
 	return (0);
 }
