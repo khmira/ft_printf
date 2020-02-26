@@ -1,39 +1,49 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	add(int args, ...)
+void	deTOhe(int nb)
 {
-	va_list ap;
+	long int r;
+	long int q;
+	int i;
+	int j;
+	int temp;
+	char h[1000000];
 
-	va_start(ap, args);
-	int i = args;
-	int sum = args;
-	while (i--)
+	i = 1;
+	if (nb < 0)
 	{
-		sum += va_arg(ap, int);
+		ft_putchar('-');
+		q = -nb;
 	}
+	else
+		q = nb;
+	while (q) {
+		temp = q % 16;
+		if (temp < 10)
+			temp = temp + 48;
+		else
+			temp = temp + 55 + 32;
+		h[i++] = temp;
+		q = q / 16;
+		j = i - 1;
+	}
+	while (j)
+	{
+		ft_putchar(h[j]);
+		j--;
+	}	
+}
 
-	va_end(ap);
-	return (sum);
-}
-void	until0(int first, ...)
-{
-	va_list list;
-	va_start(list, first);
-	int num = first;
-	while (num)
-	{
-		printf("%d\n", num);
-		num = va_arg(list, int);
-	}
-	va_end(list);
-}
 void	get_type(const char **text, va_list args)
 {
 	if (**text == 'd' && *text++)
 		ft_putnbr(va_arg(args, int));
-	if(**text == 's' && *text++)
+	else if (**text == 's' && *text++)
 		ft_putstr(va_arg(args, char *));
+	else if (**text == 'x' && *text++)
+		deTOhe(va_arg(args, int));
+
 }
 
 void	print(const char *text, ...)
@@ -54,9 +64,10 @@ void	print(const char *text, ...)
 int	main()
 {
 	//char *k = "a%dqwerty%di\n%d%d%di%d";
-	//printf(k,1, 2);
-	print("d#%s#%s", "qwerty","qwerty");
-//	printf(k, 1,2,3,4,5,6);
+	//print(k,1, 2);
+//	print("%d%#%s$%#%s",1, "qwerty","qwerty");
+	print("%x\n", 33);
+	deTOhe(33);
 //	print("##");
 	return (0);
 }
