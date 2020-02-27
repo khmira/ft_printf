@@ -42,8 +42,11 @@ void	get_type(const char **text, va_list args)
 	else if (**text == 's' && *text++)
 		ft_putstr(va_arg(args, char *));
 	else if (**text == 'x' && *text++)
-		deTOhe(va_arg(args, int));
-
+		deTOhe(va_arg(args, unsigned int));
+	else if (**text == 'c' && *text++)
+		ft_putchar(va_arg(args, int));
+	else if (**text == 'p' && *text++)
+		ft_putstr(va_arg(args, void* ));
 }
 
 void	print(const char *text, ...)
@@ -66,7 +69,9 @@ int	main()
 	//char *k = "a%dqwerty%di\n%d%d%di%d";
 	//print(k,1, 2);
 //	print("%d%#%s$%#%s",1, "qwerty","qwerty");
-	printf("%s||%d||%x\n","qwerty", 1,-2545);
+	char e = 'q';
+	print("%p", e);
+	
 //	print("##");
 	return (0);
 }
