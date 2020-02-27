@@ -1,7 +1,7 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-void	deTOhe(unsigned int   nb)
+void	deTOhe(size_t   nb)
 {
 	long int r;
 	unsigned  long int q;
@@ -46,7 +46,7 @@ void	get_type(const char **text, va_list args)
 	else if (**text == 'c' && *text++)
 		ft_putchar(va_arg(args, int));
 	else if (**text == 'p' && *text++)
-		ft_putstr(va_arg(args, void* ));
+		deTOhe((size_t)va_arg(args, void *));
 }
 
 void	print(const char *text, ...)
@@ -69,8 +69,9 @@ int	main()
 	//char *k = "a%dqwerty%di\n%d%d%di%d";
 	//print(k,1, 2);
 //	print("%d%#%s$%#%s",1, "qwerty","qwerty");
-	char e = 'q';
-	print("%p", e);
+	char e = 'k';
+	print("%p\n", &e);
+	printf("%p", &e);
 	
 //	print("##");
 	return (0);
