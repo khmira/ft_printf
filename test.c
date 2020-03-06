@@ -1,6 +1,13 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
+typedef	struct	s_data
+{
+	int p;
+	int w;
+	int m;
+	int z;
+}				t_data;
 void	deTOhe(size_t   nb)
 {
 	long int r;
@@ -37,7 +44,7 @@ void	deTOhe(size_t   nb)
 
 void	get_type(const char **text, va_list args)
 {
-	if (**text == 'd' && *text++)
+	if (**text == 'd' && (*text)++)
 		ft_putnbr(va_arg(args, int));
 	else if (**text == 's' && *text++)
 		ft_putstr(va_arg(args, char *));
@@ -48,31 +55,99 @@ void	get_type(const char **text, va_list args)
 	else if (**text == 'p' && *text++)
 		deTOhe((size_t)va_arg(args, void *));
 }
+void	initialize(t_data data)
+{
+	data.p = 0;
+	data.w = 0;
+	data.m = 0;
+	data.z = 0;
+}
+int		wANDp(va_list args, const char **text, t_data *data)
+{
+	int i;
+
+	i = 0;
+	if(**text == '-')
+	{
+		data->m = 1;
+		(*text)++;
+		i++;
+	}
+	else if(**text == '0')
+	{
+		data->z = 1;
+		(*text)++;
+		i++;
+	}
+	if(ft_isdigit(**text)){
+		data->w = ft_atoi((char *)text);
+		while (ft_isdigit(**text))
+		{
+			(*text)++;
+			i++;
+		}
+	}
+	else if(**text == '*')
+	{
+		data->w = va_arg(args, int);
+		(*text)++;
+		i++;
+	}
+	if (**text == '.')
+	{
+		(*text)++;
+		i++;
+		if(ft_isdigit(**text)){
+			data->p = ft_atoi((char *)text);
+			while (ft_isdigit(**text))
+			{
+				(*text)++;
+				i++;
+			}
+		}
+		else if(**text == '*')
+		{
+			data->p = va_arg(args, int);
+			(*text)++;
+			i++;
+		}
+	}
+	return (i);
+}	
 
 void	print(const char *text, ...)
 {
 	va_list args;
+	int i;
+	int min;
+	t_data data;
 
 	va_start(args, text);
-	while (*text)
+	initialize(data);
+/*	while (*text)
 	{
 		if (*text == '%' && text++)
-			get_type(&text, args);
-		else
+			get_type(&(text) + wANDp(args, &text, data), args);
+	
+		else 
 			ft_putchar(*text);
 		text++;
-	}
+	}*/
+	printf("\nwANDp: %d\nprec: %d\nwidth: %d\nminus: %d\nzero: %d\n", wANDp(args, &text, &data),data.p, data.w, data.m, data.z);
 	va_end(args);
 }
 int	main()
 {
 	//char *k = "a%dqwerty%di\n%d%d%di%d";
 	//print(k,1, 2);
-//	print("%d%#%s$%#%s",1, "qwerty","qwerty");
+//	print("%d%#%s$%#%s\n",1, "qwerty","qwerty");
 	char e = 'k';
-	print("%p\n", &e);
-	printf("%p", &e);
-	
+
+	print("21.12c\n", e);
+	printf("%-15.12dh\n", 9);
+	printf("%15.12dh\n", 9);
+//	print("%15.12dh\n", 9);
+
 //	print("##");
 	return (0);
 }
