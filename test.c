@@ -8,7 +8,7 @@ typedef	struct	s_data
 	int m;
 	int z;
 }				t_data;
-void	deTOhe(size_t   nb)
+void	deTOhex(size_t   nb)
 {
 	long int r;
 	unsigned  long int q;
@@ -41,6 +41,39 @@ void	deTOhe(size_t   nb)
 		j--;
 	}	
 }
+void	deTOheX(size_t   nb)
+{
+	long int r;
+	unsigned  long int q;
+	int i;
+	int j;
+	int temp;
+	char h[1000000];
+
+	i = 1;
+/*	if (nb < 0)
+	{
+		ft_putchar('-');
+		q = -nb;
+	}
+	else*/
+		q = nb;
+	while (q) {
+		temp = q % 16;
+		if (temp < 10)
+			temp = temp + 48;
+		else
+			temp = temp + 55;
+		h[i++] = temp;
+		q = q / 16;
+		j = i - 1;
+	}
+	while (j)
+	{
+		ft_putchar(h[j]);
+		j--;
+	}	
+}
 
 void	get_type(const char **text, va_list args)
 {
@@ -49,24 +82,31 @@ void	get_type(const char **text, va_list args)
 	else if (**text == 's' && *text++)
 		ft_putstr(va_arg(args, char *));
 	else if (**text == 'x' && *text++)
-		deTOhe(va_arg(args, unsigned int));
+		deTOhex(va_arg(args, unsigned int));	
+	else if (**text == 'X' && *text++)
+		deTOheX(va_arg(args, unsigned int));
+
 	else if (**text == 'c' && *text++)
 		ft_putchar(va_arg(args, int));
 	else if (**text == 'p' && *text++)
-		deTOhe((size_t)va_arg(args, void *));
-}
-void	initialize(t_data data)
+	{
+		ft_putstr("0x");
+		deTOhex((size_t)va_arg(args, void *));
+	}
+}/*
+void	initialize(t_data *data)
 {
-	data.p = 0;
-	data.w = 0;
-	data.m = 0;
-	data.z = 0;
+	data->p = 0;
+	data->w = 0;
+	data->m = 0;
+	data->z = 0;
 }
 int		wANDp(va_list args, const char **text, t_data *data)
 {
 	int i;
 
 	i = 0;
+//	initialize(data);
 	if(**text == '-')
 	{
 		data->m = 1;
@@ -114,7 +154,7 @@ int		wANDp(va_list args, const char **text, t_data *data)
 	}
 	return (i);
 }	
-
+*/
 void	print(const char *text, ...)
 {
 	va_list args;
@@ -123,17 +163,18 @@ void	print(const char *text, ...)
 	t_data data;
 
 	va_start(args, text);
-	initialize(data);
-/*	while (*text)
+//	initialize(&data);
+	while (*text)
 	{
 		if (*text == '%' && text++)
-			get_type(&(text) + wANDp(args, &text, data), args);
+			//get_type(&(text) + wANDp(args, &text, data), args);
+			get_type(&text, args);
 	
 		else 
 			ft_putchar(*text);
 		text++;
-	}*/
-	printf("\nwANDp: %d\nprec: %d\nwidth: %d\nminus: %d\nzero: %d\n", wANDp(args, &text, &data),data.p, data.w, data.m, data.z);
+	}
+//	printf("minus: %d\nwANDp: %d\nprec: %d\nwidth: %d\nminus: %d\nzero: %d\n",data.m, wANDp(args, &text, &data),data.p, data.w, data.m, data.z);
 	va_end(args);
 }
 int	main()
@@ -146,6 +187,8 @@ int	main()
 	print("21.12c\n", e);
 	printf("%-15.12dh\n", 9);
 	printf("%15.12dh\n", 9);
+	printf("printf:\n%x\n%X\n%p\n", 300,300,&e);
+	print("print:\n%x\n%X\n%p\n", 300,300,&e);
 //	print("%15.12dh\n", 9);
 
 //	print("##");
