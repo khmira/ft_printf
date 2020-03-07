@@ -79,6 +79,9 @@ void	get_type(const char **text, va_list args)
 {
 	if (**text == 'd' && (*text)++)
 		ft_putnbr(va_arg(args, int));
+	else if (**text == 'u' && (*text)++)
+		ft_putnbrU(va_arg(args,unsigned int));
+
 	else if (**text == 's' && *text++)
 		ft_putstr(va_arg(args, char *));
 	else if (**text == 'x' && *text++)
@@ -189,6 +192,13 @@ int	main()
 	printf("%15.12dh\n", 9);
 	printf("printf:\n%x\n%X\n%p\n", 300,300,&e);
 	print("print:\n%x\n%X\n%p\n", 300,300,&e);
+	printf("printf:\nu(-1): %u\n", -1);
+	printf("\nu(-2): %u\n", -2);
+	printf("\nu(-3): %u\n", -3);
+	print("print:\nu(-1): %u\n", -1);
+	print("\nu(-2): %u\n", -2);
+	print("\nu(-3): %u\n", -3);
+
 //	print("%15.12dh\n", 9);
 
 //	print("##");
