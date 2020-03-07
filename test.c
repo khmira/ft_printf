@@ -144,13 +144,29 @@ void	type_width_for_c(t_data *data)
 		data->w--;
 	}
 }
+void	type_width_for_d(t_data *data, va_list args)
+{
+	if (data->w < 0)
+		data->w--;
+	int d = va_arg(args, int);
+	data->w -=  ft_strlenD(d);
+	while (data->w  > 0)
+	{
+		ft_putchar(' ');
+		data->w--;
+	}
+	ft_putnbr(d);
+}
 void	get_type(const char **text, va_list args, t_data *data)
 {
 	int t = 0;
 	t = wANDp(args, text, data);
 
 	if (**text == 'd' && (*text)++)
-		ft_putnbr(va_arg(args, int));
+	{
+		type_width_for_d(data,args);
+		//ft_putnbr(va_arg(args, int));
+	}
 	else if (**text == 'u' && (*text)++)
 		ft_putnbrU(va_arg(args,unsigned int));
 
@@ -187,12 +203,14 @@ void	print(const char *text, ...)
 	while (*text)
 	{
 		if (*text == '%' && text++)
-			//get_type(&(text) + wANDp(args, &text, data), args);
+			//get_type(&(text) + wANDp(args, &text, intdata), args);
 			get_type(&text, args, &data);
 	
-		else 
+		else {
 			ft_putchar(*text);
-		text++;
+			text++;
+		
+		}
 	}
 //	printf("minus: %d\nwANDp: %d\nprec: %d\nwidth: %d\nminus: %d\nzero: %d\n",data.m, t,data.p, data.w, data.m, data.z);
 	va_end(args);
@@ -205,13 +223,12 @@ int	main()
 	char e = 'k';
 
 //	print("-*.*c\n",123,456, e);
-	printf("printf:\n%*c<-\n",15, e);
-	printf("%15c<-\n", e);
-	print("print:\n%*c<-\n",15, e);
-	print("%15c<-\n", e);
-	printf("printf:\n%c<-\n", e);
-	print("print: \n%c<-\n", e);
-//	print("%15.12dh\n", 9);
+	printf("printf:\n%*d<-\n",15, 123);
+	printf("%15d<-\n", 123);
+	print("print:\n%*d<-\n",15, 123);
+	print("%15d<-\n", 123);
+	printf("printf:\n%5d<-\n", 123);
+	print("print: \n%5d<-\n", 123);
 
 //	print("##");
 	return (0);

@@ -9,4 +9,5 @@ void	ft_putnbrU(unsigned int nb);
 void	ft_putstr(char *str);
 int		ft_atoi(char *str);
 int		ft_isdigit(int c);
+size_t	ft_strlenD(int n);
 #endif
