@@ -18,12 +18,6 @@ void	deTOhex(size_t   nb)
 	char h[1000000];
 
 	i = 1;
-/*	if (nb < 0)
-	{
-		ft_putchar('-');
-		q = -nb;
-	}
-	else*/
 		q = nb;
 	while (q) {
 		temp = q % 16;
@@ -51,12 +45,6 @@ void	deTOheX(size_t   nb)
 	char h[1000000];
 
 	i = 1;
-/*	if (nb < 0)
-	{
-		ft_putchar('-');
-		q = -nb;
-	}
-	else*/
 		q = nb;
 	while (q) {
 		temp = q % 16;
@@ -155,13 +143,9 @@ void	type_width_for_d(t_data *data, va_list args)
 	int c =  data->p - ft_strlenD(d);	
 	if (c < 0)
 		c = 0;
-	// w > p +stlen()  
-//	data->p -= ft_strlenD(d);
 
 	if (data->w < 0)
 		data->w--;
-//	int d = va_arg(args, int);
-//	data->w -=  ft_strlenD(d);
 	if (data->m == 0) {
 			int ci;
 		if (c != 0)
@@ -177,9 +161,9 @@ void	type_width_for_d(t_data *data, va_list args)
 		ft_putnbr(0);
 		c--;
 	}
-	}
 	ft_putnbr(d);
-	if (data->m == 1)
+	}
+	else if (data->m == 1)
 	{
 			int ci;
 		if (c != 0)
@@ -191,23 +175,14 @@ void	type_width_for_d(t_data *data, va_list args)
 		{
 			ft_putchar(' ');
 		}
+		while (c--)
+			ft_putnbr(0);
+		ft_putnbr(d);
+
 	}
+	initialize(data);
 }
-/*void	type_prec_for_d(t_data *data, va_list args)
-{
-	if (data->p < 0)
-	{
-		data->p = 0;
-	}
-	int d = va_arg(args, int);
-	data->p -= ft_strlenD(d);
-	while (data->p > 0)
-	{
-		ft_putnbr(0);
-		data->p--;
-	}
-	ft_putnbr(d);
-}*/
+
 void	get_type(const char **text, va_list args, t_data *data)
 {
 	int t = 0;
@@ -216,7 +191,6 @@ void	get_type(const char **text, va_list args, t_data *data)
 	if (**text == 'd' && (*text)++)
 	{
 		type_width_for_d(data,args);
-		//ft_putnbr(va_arg(args, int));
 	}
 	else if (**text == 'u' && (*text)++)
 		ft_putnbrU(va_arg(args,unsigned int));
@@ -254,8 +228,9 @@ void	print(const char *text, ...)
 	while (*text)
 	{
 		if (*text == '%' && text++)
-			//get_type(&(text) + wANDp(args, &text, intdata), args);
+		{
 			get_type(&text, args, &data);
+		}
 	
 		else {
 			ft_putchar(*text);
@@ -263,20 +238,14 @@ void	print(const char *text, ...)
 		
 		}
 	}
-//	printf("minus: %d\nwANDp: %d\nprec: %d\nwidth: %d\nminus: %d\nzero: %d\n",data.m, t,data.p, data.w, data.m, data.z);
 	va_end(args);
 }
 int	main()
 {
-	//char *k = "a%dqwerty%di\n%d%d%di%d";
-	//print(k,1, 2);
-//	print("%d%#%s$%#%s\n",1, "qwerty","qwerty");
 	char e = 'k';
 
 	setbuf(stdout, NULL);
-//	print("-*.*c\n",123,456, e);
-	printf("%10.6d<-\n", 12);
-	print("%10.6d<-\n", 12);
-//	print("##");
+	printf("%15.12d%c<-\n", 123456789, e);
+	print("%15.12d%c<-\n", 123456789, e);
 	return (0);
 }
