@@ -146,17 +146,68 @@ void	type_width_for_c(t_data *data)
 }
 void	type_width_for_d(t_data *data, va_list args)
 {
+	if (data->p < 0)
+	{
+		data->p = 0;
+	}
+	int d = va_arg(args, int);
+
+	int c =  data->p - ft_strlenD(d);	
+	if (c < 0)
+		c = 0;
+	// w > p +stlen()  
+//	data->p -= ft_strlenD(d);
+
 	if (data->w < 0)
 		data->w--;
-	int d = va_arg(args, int);
-	data->w -=  ft_strlenD(d);
-	while (data->w  > 0)
+//	int d = va_arg(args, int);
+//	data->w -=  ft_strlenD(d);
+	if (data->m == 0) {
+			int ci;
+		if (c != 0)
+		 ci = data->w - c - ft_strlenD(d);
+		else ci = data->w  - ft_strlenD(d);
+		while (ci  > 0)
+		{
+			ft_putchar(' ');
+			ci--;
+		}
+	while (c > 0)
 	{
-		ft_putchar(' ');
-		data->w--;
+		ft_putnbr(0);
+		c--;
+	}
 	}
 	ft_putnbr(d);
+	if (data->m == 1)
+	{
+			int ci;
+		if (c != 0)
+		 ci = data->w - c;
+		else ci = data->w  - ft_strlenD(d);
+		
+
+		while (ci--  > 0)
+		{
+			ft_putchar(' ');
+		}
+	}
 }
+/*void	type_prec_for_d(t_data *data, va_list args)
+{
+	if (data->p < 0)
+	{
+		data->p = 0;
+	}
+	int d = va_arg(args, int);
+	data->p -= ft_strlenD(d);
+	while (data->p > 0)
+	{
+		ft_putnbr(0);
+		data->p--;
+	}
+	ft_putnbr(d);
+}*/
 void	get_type(const char **text, va_list args, t_data *data)
 {
 	int t = 0;
@@ -222,14 +273,10 @@ int	main()
 //	print("%d%#%s$%#%s\n",1, "qwerty","qwerty");
 	char e = 'k';
 
+	setbuf(stdout, NULL);
 //	print("-*.*c\n",123,456, e);
-	printf("printf:\n%*d<-\n",15, 123);
-	printf("%15d<-\n", 123);
-	print("print:\n%*d<-\n",15, 123);
-	print("%15d<-\n", 123);
-	printf("printf:\n%5d<-\n", 123);
-	print("print: \n%5d<-\n", 123);
-
+	printf("%10.6d<-\n", 12);
+	print("%10.6d<-\n", 12);
 //	print("##");
 	return (0);
 }
