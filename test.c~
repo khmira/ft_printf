@@ -2,10 +2,10 @@
 #include <stdio.h>
 //#include <string.h>
 
-//int cmpt = 0;
-//int cmptd = 0;
-int	cmpt = 0;
-//int cmpt_text = 0;
+int cmpt = 0;
+int cmptd = 0;
+int cmptc = 0;
+int cmpt_text = 0;
 typedef	struct	s_data
 {
 	int p;
@@ -27,17 +27,17 @@ void print_count(void *data, int type)
 	if (type == NUMBER)
 	{
 		ft_putnbr((int )data);
-		cmpt +=  ft_strlenD((int)data);
+		cmptc +=  ft_strlenD((int)data);
 	}
 	else if (type == CHAR)
 	{
 		ft_putchar(((int )data));
-		cmpt++;
+		cmptc++;
 	}
 	else if (type ==STRING)
 	{
 		ft_putstr(data);
-		cmpt +=  ft_strlen(data);
+		cmptc +=  ft_strlen(data);
 	}
 }
 
@@ -107,7 +107,7 @@ void	initialize(t_data *data)
 	data->z = 0;
 }
 
-int	wANDp(va_list *args, char **text, t_data *data)
+int		wANDp(va_list *args, char **text, t_data *data)
 {
 	int i;
 
@@ -172,7 +172,6 @@ void	type_width_for_c(t_data *data)
 		data->w--;
 	}
 }
-
 void	type_width_for_s(t_data *data)
 {
 	data->w--;
@@ -184,7 +183,7 @@ void	type_width_for_s(t_data *data)
 		data->w--;
 	}
 }
-
+//increment cmpt in the fcnt bellow
 void	type_width_for_d(t_data *data, va_list *args)
 {
 	int ci;
