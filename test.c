@@ -245,6 +245,7 @@ void	type_width_for_d(t_data *data, va_list *args)
 void	get_type( char **text, va_list *args, t_data *data)
 {
 	int t = 0;
+	int i = 0;
 	t = wANDp(args, text, data);
 
 	if ((**text == 'd' || **text == 'i') && (*text)++)
@@ -265,8 +266,40 @@ void	get_type( char **text, va_list *args, t_data *data)
 
 	else if (**text == 's' && (*text)++)
 	{
+
+
+
+		if (data->w < 0)
+		{
+			data->w = -data->w;
+			data->m = 1;
+		}
+		if (data->p < 0)
+			data->p = 0;
+	
+		char *str = va_arg(*args, char*);
+		if (str == NULL)
+		{
+			str = "(null)";
+		}
+		int len = ft_strlen(str);
+		int pre = data->p; 
+		//str = "LO\0LO"
+		len =  data->p < len ? data->p : len;
+		data->w = data->w -  len +1;
+		if (data->m == 0)
+		{
+ 
 		type_width_for_s(data);
-		print_count((void *)va_arg(*args, char *), STRING);
+		while(len--)
+		print_count((void *)str[i++], CHAR);
+		}
+		else 
+		{
+			while(len--)
+			print_count((void *)str[i++], CHAR);
+			type_width_for_s(data);
+		}
 	}
 	else if (**text == 'x' && (*text)++)
 		deTOhex(va_arg(*args, unsigned int));	
@@ -285,13 +318,14 @@ void	get_type( char **text, va_list *args, t_data *data)
 	}
 }
 
-int	print(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list args;
 	int i;
 	int min;
 	t_data data;
 	char *text;
+	cmpt = 0;
 
 	text = (char *) format;
 	
@@ -315,16 +349,18 @@ int	print(const char *format, ...)
 		}
 	}
 	va_end(args);
-	return (cmptc);
+	return (cmpt);
 }
 
-int	main()
+int	main(int argc, char **argv)
 {
 	char e = 'k';
 
+
+
 	setbuf(stdout, NULL);
-int a =	printf("Bla bla %*.*s", 10, 3, "LoL");printf("\n");
-int b =	 print("Bla bla %*.*s", 10, 3, "LoL");
+int a =	   printf("%s", "test");printf("\n");
+int b =	 ft_printf("%s", "test");
 printf("\n");
 printf("%d  %d\n",a, b);
 	return (0);
