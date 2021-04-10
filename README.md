@@ -1,5 +1,5 @@
 # printf
-La versatilité de printf en C représente un bon exercice de programmation.Ce projet est d’une difficulté modérée. Il vous permettra d’utiliser les kwargs en C La clé de la réussite pour ft_printf est un code bien structuré et extensible.
+La versatilité de printf en C représente un bon exercice de programmation. Ce projet est d’une difficulté modérée. Il vous permettra d’utiliser les kwargs en C La clé de la réussite pour ft_printf est un code bien structuré et extensible.
 
 ## Le prototype de ft_printf devra êtreint ft_printf(const char *, ...);
 ## Vous devez recoder la fonctionprintfde lalibc
