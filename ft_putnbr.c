@@ -1,17 +1,10 @@
 #include "ft_printf.h"
 
-void	ft_putnbr(int nb)
+void    ft_putnbr(long n, int base, char *tab)
 {
-	unsigned int my_nb;
-
-	if (nb < 0)
-	{
-		ft_putchar('-');
-		my_nb = -nb;
-	}
-	else
-		my_nb = nb;
-	if (my_nb / 10 != 0)
-		ft_putnbr(my_nb / 10);
-	ft_putchar(my_nb % 10 + '0');
+    if (n < 0)
+		n *= -1;
+    if (n > base)
+        ft_putnbr(n / base, base, tab);
+    g_return_value += write(1,&tab[n%base],1);
 }

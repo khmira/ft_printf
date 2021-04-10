@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void    ft_collector(char *str)
+void    ft_collector(va_list ap, char **str)
 {
 	t_flags f;
 
@@ -8,56 +8,58 @@ void    ft_collector(char *str)
 	f.preci = -1;
 	f.zero = 0;
 	f.daminus = 0;
-	while (*str== '-')
+	while (**str== '-')
 	{
 		f.daminus = 1;
-		str++;
+		(*str)++;
 	}
-	while (*str== '0')
+	while (**str== '0')
 	{
 		f.zero = 1;
-		str++;
+		(*str)++;
 	}
-	if (*str== '*')
+	if (**str== '*')
 	{
 		f.dawidth =  va_arg(ap, int); // récupere width de va_arg il est int
 		if (f.dawidth < 0)
 		{
-			f.dawidth*=(-1);
+			f.dawidth*= (-1);
 			f.daminus = 1;
 		}
-		str++;
+		(*str)++;
 	}
 	else
 	{
 
-		while (*str >= '0' && *str <= '9') // à mettre dans le else de *
+		while (**str >= '0' && **str <= '9') // à mettre dans le else de *
 		{
-			f.dawidth = f.dawidth * 10 + *str - 48;
-			str++;
+			f.dawidth = f.dawidth * 10 + **str - 48;
+			(*str)++;
 		}// ce while est au lieu de atoi
 	}
-	if (*str == '.')
+	if (**str == '.')
 	{
-		str++;
+		(*str)++;
 		f.preci = 0; 
-		if (*str== '*')
+		if (**str== '*')
 		{
 			f.preci =  va_arg(ap, int); // récupere width de va_arg il est int
 			if (f.preci < 0)
 				f.preci = 0;
-			str++;
+			(*str)++;
 		}
-	}
-	else
+		else
 	{
 
-		while (*str >= '0' && *str <= '9') // à mettre dans le else de *
+		while (**str >= '0' && **str <= '9') // à mettre dans le else de *
 		{
-			f.preci = f.preci * 10 + *str - 48;
-			str++
+			f.preci = f.preci * 10 + **str - 48;
+			(*str)++;
 			}// ce while est au lieu de atoi
 
 	}
-	ft_router(str);
+	}
+	ft_router(**str, f, ap);
+	(*str)++;
+	//printf("width = %d\nprec = %d\nzero = %d\nminus =%d\n",(int)f.dawidth,f.preci,f.zero,f.daminus);
 }
