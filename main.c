@@ -1,8 +1,8 @@
 #include "ft_printf.h"
-
+#define TEST "%*s\n",10, NULL
 int main()
 {
-    ft_printf("%*.*d\n",12,9,0);
-    printf("%*.*d\n",12,9,0);
+    printf("1|%d|\n",ft_printf(TEST));
+    printf("2|%d|\n",   printf(TEST));
 
 }

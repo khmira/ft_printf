@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void    ft_printd(t_flags f, long d)
+void    ft_printdiu(t_flags f, long long d)
 {
     int len;
 
@@ -14,7 +14,7 @@ void    ft_printd(t_flags f, long d)
     (f.dawidth) && (f.dawidth -= (len + f.preci));
     (d < 0) && (f.dawidth--);
     (f.dawidth < 0) && (f.dawidth = 0);
-    while (f.dawidth > 0)
+    while (f.dawidth > 0 && !f.daminus)
     {
         if (f.zero)
             g_return_value += write(1,"0",1);
@@ -30,4 +30,12 @@ void    ft_printd(t_flags f, long d)
         f.preci--;
     }
     ft_putnbr(d, 10, "0123456789");
+    while (f.dawidth > 0 && f.daminus)
+    {
+        if (f.zero)
+            g_return_value += write(1,"0",1);
+        else
+            g_return_value += write(1," ",1);
+        f.dawidth--;
+    }
 }

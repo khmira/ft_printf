@@ -7,7 +7,7 @@ int     ft_router(char ptr, t_flags f, va_list ap) // ptr = form identifier
     if (ptr == 's')
         ft_prints(f, va_arg(ap, char *));
     if (ptr == 'd' || ptr == 'i')
-        ft_printd(f, va_arg(ap, int));
+        ft_printdiu(f, va_arg(ap, int));
     if (ptr == 'x')
         ft_printx(f, va_arg(ap, unsigned));
     if (ptr == 'X')
@@ -15,7 +15,7 @@ int     ft_router(char ptr, t_flags f, va_list ap) // ptr = form identifier
     if (ptr == 'p')
         ft_printp(f, va_arg(ap, size_t));
     if (ptr == 'u')
-        ft_printx(f, va_arg(ap, unsigned int));
+        ft_printdiu(f, va_arg(ap, unsigned));
     if (ptr == '%')
         ft_printc(f, '%');
     return 0;

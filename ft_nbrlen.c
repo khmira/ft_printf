@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int     ft_nrblen(long nbr, int base) 
+int     ft_nrblen(long long nbr, int base) 
 {
 	int	i;
 
