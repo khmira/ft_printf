@@ -21,5 +21,15 @@ void    ft_prints(t_flags f, char *s)
     f.dawidth -= f.preci;
     if (f.dawidth < 0)
         f.dawidth = 0;
+    while (f.dawidth > 0 && !f.daminus)
+    {
+        g_return_value += write(1," ",1);
+        f.dawidth--;
+    }
     g_return_value += write(1,s,f.preci);
+    while (f.dawidth > 0 && f.daminus)
+    {
+        g_return_value += write(1," ",1);
+        f.dawidth--;
+    }
 }

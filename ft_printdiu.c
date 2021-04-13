@@ -5,14 +5,15 @@ void    ft_printdiu(t_flags f, long long d)
     int len;
 
     len = ft_nrblen(d, 10);
-    
+
     if (f.preci >= 0)
     {
         f.preci -= len;
         (f.preci < 0) && (f.preci = 0);
     }
-    (f.dawidth) && (f.dawidth -= (len + f.preci));
-    (d < 0) && (f.dawidth--);
+    f.dawidth -= (len + f.preci);
+    (d < 0) && (f.dawidth--); 
+    (f.preci < 0) && (f.dawidth--);
     (f.dawidth < 0) && (f.dawidth = 0);
     while (f.dawidth > 0 && !f.daminus)
     {

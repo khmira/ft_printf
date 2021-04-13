@@ -20,7 +20,7 @@ void    ft_collector(va_list ap, char **str)
 	}
 	if (**str== '*')
 	{
-		f.dawidth =  va_arg(ap, int); // récupere width de va_arg il est int
+		f.dawidth =  va_arg(ap, int);
 		if (f.dawidth < 0)
 		{
 			f.dawidth*= (-1);
